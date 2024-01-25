@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { SideBar } from './Components/SideBar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { Dashboard } from './Pages/Dashboard';
 import { Drives } from './Pages/Drives';
@@ -11,7 +11,14 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MyFiles />
+    <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/myfiles" element={<MyFiles />} />
+          <Route path="/drives" element={<Drives />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
