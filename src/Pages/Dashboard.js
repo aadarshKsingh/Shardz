@@ -1,12 +1,11 @@
 import React from "react";
 import NavBar from "../Components/NavBar";
 import { SideBar } from "../Components/SideBar";
-import { Card, Progress } from "flowbite-react";
-import { DiOnedrive } from "react-icons/di";
-import { DiGoogleDrive } from "react-icons/di";
-import { SiMega } from "react-icons/si";
-import { SiProtondrive } from "react-icons/si";
 import { Table } from 'flowbite-react';
+import { OneDrive } from "../Components/OneDrive";
+import { GoogleDrive } from "../Components/GoogleDrive";
+import { Mega } from "../Components/Mega";
+import { Proton } from "../Components/Proton";
 export const Dashboard = () => {
   return (
     <div>
@@ -19,33 +18,10 @@ export const Dashboard = () => {
           <p className="font-bold text-4xl p-5">Dashboard</p>
           <div className="flex flex-col">
             <div className="flex flex-row">
-              <Card className="rounded-3xl shadow-xl px-5 mx-5 bg-gradient-to-r  from-[#0078D4] via-[#1490DF] to-[#28A8EA] opacity-70">
-                <DiOnedrive className=" h-36 w-36 invert" />
-                <p className="text-2xl -my-2 invert">OneDrive</p>
-                <Progress progress={20} className="border" color="blue" />
-                <p className="invert opacity-65">200 GB / 1000 GB</p>
-              </Card>
-
-              <Card className="rounded-3xl shadow-xl px-5  mx-5 bg-gradient-to-r  from-[#1b9359] via-[#1fa463] to-[#62bf91] opacity-70">
-                <DiGoogleDrive className=" h-36 w-36 invert" />
-                <p className="text-2xl -my-2 invert">Google Drive</p>
-                <Progress progress={4} className="border" color="green" />
-                <p className="invert opacity-65">81 GB / 2000 GB</p>
-              </Card>
-
-              <Card className="rounded-3xl shadow-xl px-5  mx-5 bg-gradient-to-r  from-[#ca1205] via-[#dd1405] to-[#fa3223] opacity-70">
-                <SiMega className=" h-36 w-36 invert" />
-                <p className="text-2xl -my-2 invert">MEGA</p>
-                <Progress progress={90} className="border" color="red" />
-                <p className="invert opacity-65">45 GB / 50 GB</p>
-              </Card>
-
-              <Card className="rounded-3xl shadow-xl px-5  mx-5 bg-gradient-to-r  from-[#5948ca] via-[#6351e1] to-[#7262e4] opacity-70">
-                <SiProtondrive className=" h-36 w-36 invert" />
-                <p className="text-2xl -my-2 invert">Proton</p>
-                <Progress progress={40} className="border" color="purple" />
-                <p className="invert opacity-65">2 GB / 5 GB</p>
-              </Card>
+              <OneDrive/>
+              <GoogleDrive/>
+              <Mega/>
+              <Proton/>
             </div>
             <p className="font-bold text-4xl p-5">Recent Files</p>
             <div className="overflow-x-auto">
