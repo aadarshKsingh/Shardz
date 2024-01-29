@@ -1,7 +1,8 @@
 import React from 'react'
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import cloud from '../Assets/cloud.png'
-function NavBar() {
+
+function NavBar(props) {
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/" className='pl-10'>
@@ -28,7 +29,7 @@ function NavBar() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        Dashboard
+        <p className='text-lg'>{props.pageTitle}</p>
       </Navbar.Collapse>
     </Navbar>
   )

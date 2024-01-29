@@ -4,9 +4,10 @@ import { Directory } from '../Components/Directory'
 import { Image } from '../Components/Image'
 import { Archive } from '../Components/Archive'
 import NavBar from '../Components/NavBar'
-export const MyFiles = () => {
-    return (<>
-        <header><NavBar pageTitle="My Files"/></header>
+export const SharedFiles = () => {
+  return (
+    <>
+        <header><NavBar pageTitle="Shared Files"/></header>
         <div className='w-screen flex flex-row'>
             <SideBar />
             <div className="grid grid-flow-col gap-4">
@@ -20,5 +21,5 @@ export const MyFiles = () => {
             </div>
         </div>
     </>
-    )
+  )
 }

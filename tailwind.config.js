@@ -10,6 +10,6 @@ module.exports = {
       }
     },
   },
-  plugins: [require('flowbite/plugin'),],
+  plugins: [require('flowbite/plugin')],
 }
 

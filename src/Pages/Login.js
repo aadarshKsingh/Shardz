@@ -7,8 +7,9 @@ function App() {
       <div className="flex flex-col w-screen h-screen justify-center text-center items-center">
         <form className="flex w-96 flex-col gap-4">
           <div>
-            <div className='w-96 flex flex-row justify-center p-16'>
-              <img src={cloud} alt="cloud" />
+            <div className='w-96 flex flex-col justify-center align-center p-16'>
+              <img src={cloud} alt="cloud"/>
+              <p className='font-thin text-7xl'>Shardz</p>
             </div>
             <TextInput color="" id="email1" type="email" placeholder="Email" required />
           </div>
