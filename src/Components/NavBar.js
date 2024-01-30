@@ -1,8 +1,17 @@
 import React from 'react'
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Dropdown, Navbar } from 'flowbite-react';
 import cloud from '../Assets/cloud.png'
-
+import { useSessionStorage } from 'react-storage-complete';
+import { useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa6';
 function NavBar(props) {
+  const [accessToken,setAccessToken] = useSessionStorage('access_token', '');
+  const navigate = useNavigate()
+  const handleLogout = () =>{
+    console.log("logged out")
+    setAccessToken('')
+    navigate("/login")
+  }
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/" className='pl-10'>
@@ -14,7 +23,7 @@ function NavBar(props) {
           arrowIcon={false}
           inline
           label={
-            <p className='flex flex-row items-center font-bold'>DeFalco64<Avatar className='pl-2' alt="User settings" img="https://i.ibb.co/17xBQBr/IMG-20240125-184804-539.jpg" rounded /></p>
+            <p className='flex flex-row items-center font-bold'>DeFalco64<FaUser className='ml-5'/></p>
           }
         >
           <Dropdown.Header>
@@ -24,7 +33,7 @@ function NavBar(props) {
           <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={handleLogout}><p onClick={()=>handleLogout}>Sign out</p></Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>

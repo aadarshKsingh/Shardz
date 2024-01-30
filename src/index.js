@@ -6,7 +6,9 @@ import { Dashboard } from './Pages/Dashboard';
 import { Drives } from './Pages/Drives';
 import Login from './Pages/Login';
 import { MyFiles } from './Pages/MyFiles';
+import { Register } from './Pages/Register';
 import { SharedFiles } from './Pages/SharedFiles';
+import { Verify } from './Pages/Verify';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,9 +18,11 @@ root.render(
       <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/myfiles" element={<MyFiles />} />
           <Route path="/drives" element={<Drives />} />
           <Route path="/sharedfiles" element={<SharedFiles />} />
+          <Route path="/verify" element={<Verify />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
