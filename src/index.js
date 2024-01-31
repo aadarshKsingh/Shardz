@@ -9,6 +9,7 @@ import { MyFiles } from './Pages/MyFiles';
 import { Register } from './Pages/Register';
 import { SharedFiles } from './Pages/SharedFiles';
 import { Verify } from './Pages/Verify';
+import { Update } from './Pages/Update';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ root.render(
           <Route path="/drives" element={<Drives />} />
           <Route path="/sharedfiles" element={<SharedFiles />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/update" element={<Update />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -25,7 +25,7 @@ export const Verify = () => {
     <div className="flex flex-col w-screen h-screen justify-center text-center items-center">
       <img src={cloud} alt='cloud'/>
       <p className='font-thin text-7xl'>Shardz</p>
-      <p color='black' onClick={()=>verifyAccount} className='bg-black text-white w-96 btn py-2.5 mt-5 rounded-lg'>Verify Account</p>
+      <button color='black' onClick={()=>verifyAccount} className='bg-black text-white w-96 btn py-2.5 mt-5 rounded-lg'>Verify Account</button>
     </div>
   </div>
   )
