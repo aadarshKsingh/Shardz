@@ -48,7 +48,7 @@ function App() {
             <div class="bg-gray-400 flex-1 h-0.5" />
 
             <div>
-              <p class="text-[#5793FB] text-center px-5 ">Forgot Password?</p>
+              <NavLink to="/forgot-password"><p class="text-[#5793FB] text-center px-5 ">Forgot Password?</p></NavLink>
             </div>
 
             <div class="bg-gray-400 flex-1 h-0.5" />

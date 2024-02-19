@@ -11,6 +11,7 @@ import { SharedFiles } from './Pages/SharedFiles';
 import { Verify } from './Pages/Verify';
 import { Update } from './Pages/Update';
 import reportWebVitals from './reportWebVitals';
+import { ForgotPassword } from './Pages/ForgotPassword';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +26,7 @@ root.render(
           <Route path="/sharedfiles" element={<SharedFiles />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/update" element={<Update />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
