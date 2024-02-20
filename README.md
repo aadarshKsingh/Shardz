@@ -18,7 +18,7 @@ https://github.com/aadarshKsingh/Shardz/assets/40134208/7f3f3c22-288f-4a7e-ad02-
 
 Shardz is developed by Team X3cutioners
 
-- Aadarsh Kumar Singh
 - Abhishek Verma
 - Aman Sharma
-
+- Swati Kumari
+- Aadarsh Kumar Singh
