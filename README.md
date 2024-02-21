@@ -12,7 +12,7 @@ Shardz is a cloud storage platform that allows users to seamlessly connect their
 
 ## Introduction to Shardz (Video)
 
-https://github.com/aadarshKsingh/Shardz/assets/40134208/7f3f3c22-288f-4a7e-ad02-69cb15bb98b6
+https://github.com/aadarshKsingh/Shardz/assets/47781114/01bcc80e-ed58-48f6-9f6a-31d5b0e962ac
 
 ## Team X3cutioners
 
