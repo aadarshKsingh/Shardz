@@ -12,6 +12,8 @@ import { Verify } from './Pages/Verify';
 import { Update } from './Pages/Update';
 import reportWebVitals from './reportWebVitals';
 import { ForgotPassword } from './Pages/ForgotPassword';
+import { PrivacyPolicy } from './Pages/PrivacyPolicy';
+import { TOS } from './Pages/TOS';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +29,8 @@ root.render(
           <Route path="/verify" element={<Verify />} />
           <Route path="/update" element={<Update />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/terms-of-service" element={<TOS />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
