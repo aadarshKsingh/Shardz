@@ -8,6 +8,7 @@ export const Register = () => {
     const [userEmail, setEmail] = useState('');
     const [userPassword, setPassword] = useState('');
     const [register,setRegister] = useState(false);
+    const [message,setMessage] = useState("Check your mail to verify account")
     const handleRegister = (e) => {
         e.preventDefault()
        
@@ -19,7 +20,9 @@ export const Register = () => {
           })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                if(data.message==="User already exists"){
+                  setMessage("User Already Exists")
+                }
                 setRegister(true)
             })
             .catch((error) => {
@@ -54,7 +57,7 @@ export const Register = () => {
       </form>
       <NavLink to="/login"><p color='black' className='bg-black text-white w-96 btn py-2.5 mt-5 rounded-lg' type="submit">Sign in</p></NavLink>
       {register ? <Alert color="info">
-      <span className="font-medium">Check your mail to verify account</span>
+      <span className="font-medium">{message}</span>
     </Alert> : null}
     </div>
   </div>
