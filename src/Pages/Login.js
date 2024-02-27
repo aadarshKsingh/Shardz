@@ -4,9 +4,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSessionStorage } from 'react-storage-complete';
 function App() {
-    const [userEmail, setEmail] = useState('');
-    const [userPassword, setPassword] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
     const [accessToken,setAccessToken] = useSessionStorage('access_token', '');
+    const [name,setName] = useSessionStorage('name', '');
+    const [email,setEmail] = useSessionStorage('email', '');
+    const [profilePicture,setProfilePicture] = useSessionStorage('profilePicture', '');
+
     const navigate = useNavigate()
     const handleLogin = (e) => {
         e.preventDefault()
@@ -20,8 +24,9 @@ function App() {
             .then((data) => {
                 console.log(data)
                 if(data.access_token){
-                  setAccessToken(data.access_token)
-                  navigate("/")
+                  sessionStorage.setItem(accessToken,data.access_token)
+                  handleProfile()
+                  navigate("/")  
                 }
             })
             .catch((error) => {
@@ -29,6 +34,28 @@ function App() {
             });
        
       };
+      const handleProfile = () => {
+        fetch(process.env.REACT_APP_SERVER+'/profile', {
+            method: 'GET',
+            mode: "cors",
+            headers: {
+                'Authorization': sessionStorage.getItem(accessToken),
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(sessionStorage.getItem(accessToken))
+            setEmail(data.email);
+            setName(data.name);
+            setProfilePicture(data.profile_picture);
+            console.log(data);
+            // navigate("/");
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+    };
   return (
     <div>
       <div className="flex flex-col w-screen h-screen justify-center text-center items-center">
@@ -38,10 +65,10 @@ function App() {
               <img src={cloud} alt="cloud"/>
               <p className='font-thin text-7xl'>Log In</p>
             </div>
-            <TextInput value={userEmail} onChange={(e) => { setEmail(e.target.value)}} color="" id="email1" type="email" placeholder="Email" required />
+            <TextInput value={userEmail} onChange={(e) => { setUserEmail(e.target.value)}} color="" id="email1" type="email" placeholder="Email" required />
           </div>
           <div className='py-2'>
-            <TextInput value={userPassword} onChange={(e) => { setPassword(e.target.value)}} color="blue" id="password1" type="password" placeholder='Password' required />
+            <TextInput value={userPassword} onChange={(e) => { setUserPassword(e.target.value)}} color="blue" id="password1" type="password" placeholder='Password' required />
           </div>
           <Button color='blue' className='bg-[#5793FB]' type="submit">Sign in</Button>
           <div class="flex items-center">

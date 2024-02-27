@@ -11,11 +11,11 @@ export const MyFiles = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!accessToken) {
+        if (!sessionStorage.getItem(accessToken)) {
             navigate("/login");
         }
     }, [accessToken, navigate]);
-    if (accessToken) {
+    if (sessionStorage.getItem(accessToken)) {
         return (<>
             <header><NavBar pageTitle="My Files" /></header>
             <div className='w-screen flex flex-row'>

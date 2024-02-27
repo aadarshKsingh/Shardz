@@ -9,7 +9,8 @@ import { MyFiles } from './Pages/MyFiles';
 import { Register } from './Pages/Register';
 import { SharedFiles } from './Pages/SharedFiles';
 import { Verify } from './Pages/Verify';
-import { Update } from './Pages/Update';
+import { UpdateDetails } from './Pages/UpdateDetails';
+import { UpdatePassword } from './Pages/UpdatePassword';
 import reportWebVitals from './reportWebVitals';
 import { ForgotPassword } from './Pages/ForgotPassword';
 import { PrivacyPolicy } from './Pages/PrivacyPolicy';
@@ -27,7 +28,8 @@ root.render(
           <Route path="/drives" element={<Drives />} />
           <Route path="/sharedfiles" element={<SharedFiles />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/update" element={<Update />} />
+          <Route path="/update-details" element={<UpdateDetails />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/terms-of-service" element={<TOS />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

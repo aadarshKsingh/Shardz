@@ -13,11 +13,11 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!sessionStorage.getItem(accessToken)) {
       navigate("/login");
     }
   }, [accessToken, navigate]);
-  if (accessToken) {
+  if (sessionStorage.getItem(accessToken)) {
     return (
       <div>
         <header>
