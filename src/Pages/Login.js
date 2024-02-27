@@ -1,5 +1,5 @@
 import cloud from '../Assets/cloud.png'
-import { Button, TextInput } from 'flowbite-react';
+import { Button, TextInput, Alert } from 'flowbite-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSessionStorage } from 'react-storage-complete';
@@ -10,7 +10,8 @@ function App() {
     const [name,setName] = useSessionStorage('name', '');
     const [email,setEmail] = useSessionStorage('email', '');
     const [profilePicture,setProfilePicture] = useSessionStorage('profilePicture', '');
-
+    const [login,setLogin] = useState(false);
+    const [message,setMessage] = useState("Welcome back to Shardz!")
     const navigate = useNavigate()
     const handleLogin = (e) => {
         e.preventDefault()
@@ -25,8 +26,14 @@ function App() {
                 console.log(data)
                 if(data.access_token){
                   sessionStorage.setItem(accessToken,data.access_token)
+                  setMessage("Welcome back to Shardz!")
+                  setLogin(true)
                   handleProfile()
                   navigate("/")  
+                }
+                if(data.message==="Invalid credentials"){
+                  setMessage("Invalid credentials")
+                  setLogin(true)
                 }
             })
             .catch((error) => {
@@ -83,6 +90,9 @@ function App() {
           
         </form>
         <NavLink to="/register"><p color='black' className='bg-black text-white w-96 btn py-2.5 mt-5 rounded-lg' type="submit">Sign up</p></NavLink>
+        {login ? <Alert color="info" className='m-5'>
+      <span className="font-medium">{message}</span>
+    </Alert> : null}
       </div>
     </div>
   );

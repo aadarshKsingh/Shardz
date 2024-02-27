@@ -59,10 +59,10 @@ export const UpdatePassword = () => {
                   required
                 />
               </div>
-              <Button color='blue' className='bg-[#5793FB]' type="submit">Update Details</Button>
-            </form>
-            {showToast && (
-              <Toast>
+              <div className='flex flex-col'>
+                <Button color='blue' className='bg-[#5793FB]' type="submit">Update Password</Button>
+                {showToast && (
+              <Toast className='p-5 m-5'>
                 <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-500 dark:bg-cyan-800 dark:text-cyan-200">
                   <MdOutlineDone className="h-5 w-5" />
                 </div>
@@ -70,6 +70,9 @@ export const UpdatePassword = () => {
                 <Toast.Toggle onDismiss={() => setShowToast(false)} />
               </Toast>
             )}
+                </div>
+            </form>
+            
           </div>
         </div>
       </>
