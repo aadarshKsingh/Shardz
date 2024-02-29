@@ -28,6 +28,7 @@ function App() {
                   sessionStorage.setItem(accessToken,data.access_token)
                   setMessage("Welcome back to Shardz!")
                   setLogin(true)
+                  handleDashboard()
                   handleProfile()
                   navigate("/")  
                 }
@@ -52,17 +53,32 @@ function App() {
         })
         .then(response => response.json())
         .then(data => {
-          console.log(sessionStorage.getItem(accessToken))
             setEmail(data.email);
             setName(data.name);
             setProfilePicture(data.profile_picture);
-            console.log(data);
-            // navigate("/");
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
     };
+
+    const handleDashboard = () => {
+      fetch(process.env.REACT_APP_SERVER+'/dashboard', {
+          method: 'GET',
+          mode: "cors",
+          headers: {
+              'Authorization': sessionStorage.getItem(accessToken),
+              'content-type': 'application/json'
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          sessionStorage.setItem('storage',JSON.stringify(data.storage))
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+      });
+  };
   return (
     <div>
       <div className="flex flex-col w-screen h-screen justify-center text-center items-center">

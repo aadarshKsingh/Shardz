@@ -1,10 +1,9 @@
 import {React, useState} from 'react'
-
-import { Dropdown, Navbar, Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import { Dropdown, Navbar } from 'flowbite-react';
 import cloud from '../Assets/cloud.png'
 import { useSessionStorage } from 'react-storage-complete';
 import { useNavigate } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa6';
+
 function NavBar(props) {
   const [accessToken,setAccessToken] = useSessionStorage('access_token', '');
   const navigate = useNavigate()
@@ -18,7 +17,7 @@ function NavBar(props) {
     setEmail('');
   }
   const handleLogout = () =>{
-    console.log("logged out")
+    onCloseModal()
     setAccessToken('')
     navigate("/login")
   }
@@ -33,7 +32,7 @@ function NavBar(props) {
           arrowIcon={false}
           inline
           label={
-            <p className='flex flex-row items-center font-bold'>{name}<img src={profilePicture} height="40" width="40" className='ml-5' alt={email}/></p>
+            <p className='flex flex-row items-center font-bold'>{name}<img src={profilePicture} height="40" width="40" className='ml-5 rounded-full' alt={email}/></p>
           }
         >
           <Dropdown.Header>

@@ -22,7 +22,6 @@ export const Verify = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.access_token) {
           setAccessToken(data.access_token);
           navigate('/');
