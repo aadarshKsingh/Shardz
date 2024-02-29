@@ -74,6 +74,8 @@ function App() {
       .then(response => response.json())
       .then(data => {
           sessionStorage.setItem('storage',JSON.stringify(data.storage))
+          sessionStorage.setItem('drives',JSON.stringify(data.drives))
+          console.log(JSON.parse(sessionStorage.getItem('drives')))
       })
       .catch(error => {
           console.error('Error fetching data:', error);

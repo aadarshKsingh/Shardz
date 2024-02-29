@@ -6,7 +6,9 @@ import { Table } from 'flowbite-react';
 import { OneDrive } from "../Components/OneDrive";
 import { GoogleDrive } from "../Components/GoogleDrive";
 import { Mega } from "../Components/Mega";
-import { Proton } from "../Components/Proton";
+import { DropBox } from "../Components/DropBox";
+import { PCloud } from "../Components/PCloud";
+
 import { useSessionStorage } from "react-storage-complete";
 export const Dashboard = () => {
   const [accessToken] = useSessionStorage('access_token', '');
@@ -29,10 +31,22 @@ export const Dashboard = () => {
             <p className="font-bold text-4xl p-5">Dashboard</p>
             <div className="flex flex-col">
               <div className="flex flex-row">
-                <OneDrive />
-                <GoogleDrive />
-                <Mega />
-                <Proton />
+              {JSON.parse(sessionStorage.getItem("drives")).map(drive => {
+                if (drive.brand === 'gdrive') {
+                 return <GoogleDrive used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                 } else if (drive.brand === 'dropbox') {
+                  return <DropBox used={drive.used} total={drive.total} used_percent={drive.used_percent} />;
+                 } else if (drive.brand === 'onedrive') {
+                 return <OneDrive used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                 } else if (drive.brand === 'mega') {
+                 return <Mega used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                } else if (drive.brand === 'pcloud') {
+                 return <PCloud used={drive.used} total={drive.total} used_percent={drive.used_percent} />;
+                } else {
+                  return null;
+            }
+           })}
+
               </div>
               <p className="font-bold text-4xl p-5">Recent Files</p>
               <div className="overflow-x-auto">

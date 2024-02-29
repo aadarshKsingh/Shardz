@@ -10,6 +10,8 @@ import {
 
 export const SideBar = () => {
   const storageData = JSON.parse(sessionStorage.getItem('storage'))
+  const driveData = JSON.parse(sessionStorage.getItem('drives'))
+
   return (
     <div className='flex flex-row'><Sidebar>
       <Sidebar.Items>
@@ -27,14 +29,13 @@ export const SideBar = () => {
           <Sidebar.Item  href="/sharedfiles"  icon={LuShare2}  >
             Shared Files
           </Sidebar.Item>
-          <Sidebar.Item  href="/drives" icon={LuLayers} labelColor="dark" label="4">
+          <Sidebar.Item  href="/drives" icon={LuLayers} labelColor="dark" label={driveData.length}>
             Drives
           </Sidebar.Item>
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
           <Sidebar.Item  className="bg-[#5793FB] bg-opacity-20">
             <p className='flex flex-row -mx-3'><LuHardDrive className='h-7 w-7 opacity-60 py-50'/><p className='pl-2'>Storage</p></p>
-            <button onClick={console.log(storageData)}>print</button>
             <p className='font-thin text-sm pt-3 pb-2'>{storageData.used} of {storageData.total} used</p>
             <p className='pb-5'><Progress progress={storageData.used_percent} color="blue" /></p>
           </Sidebar.Item>
