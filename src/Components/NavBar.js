@@ -1,22 +1,22 @@
-import {React, useState} from 'react'
+import { React, useState } from 'react'
 import { Dropdown, Navbar } from 'flowbite-react';
 import cloud from '../Assets/cloud.png'
 import { useSessionStorage } from 'react-storage-complete';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar(props) {
-  const [accessToken,setAccessToken] = useSessionStorage('access_token', '');
+  const [accessToken, setAccessToken] = useSessionStorage('access_token', '');
   const navigate = useNavigate()
-   const [openModal, setOpenModal] = useState(false);
-   const [name,setName] = useSessionStorage('name', '');
-   const [email,setEmail] = useSessionStorage('email', '');
-   const [profilePicture,setProfilePicture] = useSessionStorage('profilePicture', '');
+  const [openModal, setOpenModal] = useState(false);
+  const [name, setName] = useSessionStorage('name', '');
+  const [email, setEmail] = useSessionStorage('email', '');
+  const [profilePicture, setProfilePicture] = useSessionStorage('profilePicture', '');
 
   function onCloseModal() {
     setOpenModal(false);
     setEmail('');
   }
-  const handleLogout = () =>{
+  const handleLogout = () => {
     onCloseModal()
     setAccessToken('')
     navigate("/login")
@@ -32,17 +32,17 @@ function NavBar(props) {
           arrowIcon={false}
           inline
           label={
-            <p className='flex flex-row items-center font-bold'>{name}<img src={profilePicture} height="40" width="40" className='ml-5 rounded-full' alt={email}/></p>
+            <p className='flex flex-row items-center font-bold'>{name}<img src={profilePicture} height="40" width="40" className='ml-5 rounded-full' alt={email} /></p>
           }
         >
           <Dropdown.Header>
             <span className="block text-sm">{name}</span>
             <span className="block truncate text-sm font-medium">{email}</span>
           </Dropdown.Header>
-          <Dropdown.Item onClick={()=>navigate("/update-details")}>Update Details</Dropdown.Item>
-          <Dropdown.Item onClick={()=>navigate("/update-password")}>Update Password</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate("/update-details")}>Update Details</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate("/update-password")}>Update Password</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item onClick={handleLogout}><p onClick={()=>handleLogout}>Sign out</p></Dropdown.Item>
+          <Dropdown.Item onClick={handleLogout}><p onClick={() => handleLogout}>Sign out</p></Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>

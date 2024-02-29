@@ -20,6 +20,7 @@ export const Dashboard = () => {
     }
   }, [accessToken, navigate]);
   if (sessionStorage.getItem(accessToken)) {
+    const recentData = JSON.parse(sessionStorage.getItem("recent")).sort((a, b) => new Date(a.date) - new Date(b.date));
     return (
       <div>
         <header>
@@ -61,46 +62,20 @@ export const Dashboard = () => {
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
+                  {recentData.map(recent => 
                     <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        {'A Clockwork Orange (1971) (1080p x265 10bit Tigole).mkv'}
+                        {recent.name}
                       </Table.Cell>
                       <Table.Cell></Table.Cell>
-                      <Table.Cell>2023-10-10 19:11:43</Table.Cell>
-                      <Table.Cell>3.30 GB</Table.Cell>
+                      <Table.Cell>{recent.date}</Table.Cell>
+                      <Table.Cell>{recent.size}</Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        [DODI] Ghostrunner 2.tar
-                      </Table.Cell>
-                      <Table.Cell></Table.Cell>
-                      <Table.Cell>2023-12-5 17:20:32</Table.Cell>
-                      <Table.Cell>21.31 GB</Table.Cell>
-
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        Heat.1995.Director's.Definitve.Edition.BluRay.A.I.REMASTERED.1080p.x265.10Bit.HEVC.(English 384Kbps DD 5.1).VITOENCODES.mkv
-                      </Table.Cell>
-                      <Table.Cell></Table.Cell>
-                      <Table.Cell>2024-01-15 10:15:24</Table.Cell>
-                      <Table.Cell>2.85 GB</Table.Cell>
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        Oppenheimer.2023.IMAX.1080p.10bit.DS4K.BluRay.[Org.DDP5.1-Hindi+DDP5.1-English].ESub.HEVC-The.PunisheR.mkv
-                      </Table.Cell>
-                      <Table.Cell></Table.Cell>
-                      <Table.Cell>2023-11-15 15:20:11</Table.Cell>
-                      <Table.Cell>7.75 GB</Table.Cell>
-
-                    </Table.Row>
+                   )}
                   </Table.Body>
                 </Table>
               </div>
-
               <div>
-
               </div>
               <div></div>
             </div>
