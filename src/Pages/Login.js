@@ -2,22 +2,18 @@ import cloud from '../Assets/cloud.png'
 import { Button, TextInput, Alert } from 'flowbite-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useSessionStorage } from 'react-storage-complete';
+
 function App() {
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [accessToken,setAccessToken] = useSessionStorage('access_token', '');
-    const [name,setName] = useSessionStorage('name', '');
-    const [email,setEmail] = useSessionStorage('email', '');
-    const [profilePicture,setProfilePicture] = useSessionStorage('profilePicture', '');
     const [login,setLogin] = useState(false);
     const [message,setMessage] = useState("Welcome back to Shardz!")
     const navigate = useNavigate()
-    const handleLogin = (e) => {
+
+    const handleLogin = async (e) => {
         e.preventDefault()
           fetch(process.env.REACT_APP_SERVER+'/login', {
             method: "POST",
-            mode: "cors",
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({"email": userEmail,"password": userPassword }),
           })
@@ -25,12 +21,11 @@ function App() {
             .then((data) => {
                 console.log(data)
                 if(data.access_token){
-                  sessionStorage.setItem(accessToken,data.access_token)
+                  sessionStorage.setItem('accessToken',data.access_token) 
                   setMessage("Welcome back to Shardz!")
                   setLogin(true)
-                  handleDashboard()
                   handleProfile()
-                  navigate("/")  
+                  handleDashboard()
                 }
                 if(data.message==="Invalid credentials"){
                   setMessage("Invalid credentials")
@@ -45,17 +40,16 @@ function App() {
       const handleProfile = () => {
         fetch(process.env.REACT_APP_SERVER+'/profile', {
             method: 'GET',
-            mode: "cors",
             headers: {
-                'Authorization': sessionStorage.getItem(accessToken),
+                'Authorization': sessionStorage.getItem('accessToken'),
                 'content-type': 'application/json'
             }
         })
         .then(response => response.json())
         .then(data => {
-            setEmail(data.email);
-            setName(data.name);
-            setProfilePicture(data.profile_picture);
+            sessionStorage.setItem('useremail',data.email)
+            sessionStorage.setItem('username',data.name)
+            sessionStorage.setItem('pfp',data.profile_picture)
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -65,17 +59,17 @@ function App() {
     const handleDashboard = () => {
       fetch(process.env.REACT_APP_SERVER+'/dashboard', {
           method: 'GET',
-          mode: "cors",
           headers: {
-              'Authorization': sessionStorage.getItem(accessToken),
+              'Authorization': sessionStorage.getItem('accessToken'),
               'content-type': 'application/json'
           }
       })
       .then(response => response.json())
-      .then(data => {
-          sessionStorage.setItem('storage',JSON.stringify(data.storage))
-          sessionStorage.setItem('drives',JSON.stringify(data.drives))
-          sessionStorage.setItem('recent',JSON.stringify(data.recent_files))
+      .then(async data => {
+           sessionStorage.setItem('storage',JSON.stringify(data.storage))
+           sessionStorage.setItem('drives',JSON.stringify(data.drives))
+           sessionStorage.setItem('recent',JSON.stringify(data.recent_files))
+          navigate("/")
         })
       .catch(error => {
           console.error('Error fetching data:', error);
@@ -96,14 +90,14 @@ function App() {
             <TextInput value={userPassword} onChange={(e) => { setUserPassword(e.target.value)}} color="blue" id="password1" type="password" placeholder='Password' required />
           </div>
           <Button color='blue' className='bg-[#5793FB]' type="submit">Sign in</Button>
-          <div class="flex items-center">
-            <div class="bg-gray-400 flex-1 h-0.5" />
+          <div className="flex items-center">
+            <div className="bg-gray-400 flex-1 h-0.5" />
 
             <div>
-              <NavLink to="/forgot-password"><p class="text-[#5793FB] text-center px-5 ">Forgot Password?</p></NavLink>
+              <NavLink to="/forgot-password"><p className="text-[#5793FB] text-center px-5 ">Forgot Password?</p></NavLink>
             </div>
 
-            <div class="bg-gray-400 flex-1 h-0.5" />
+            <div className="bg-gray-400 flex-1 h-0.5" />
           </div>
           
         </form>

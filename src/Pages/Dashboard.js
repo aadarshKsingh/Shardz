@@ -9,17 +9,16 @@ import { Mega } from "../Components/Mega";
 import { DropBox } from "../Components/DropBox";
 import { PCloud } from "../Components/PCloud";
 
-import { useSessionStorage } from "react-storage-complete";
 export const Dashboard = () => {
-  const [accessToken] = useSessionStorage('access_token', '');
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!sessionStorage.getItem(accessToken)) {
+    if (!sessionStorage.getItem('accessToken')) {
       navigate("/login");
     }
-  }, [accessToken, navigate]);
-  if (sessionStorage.getItem(accessToken)) {
+  }, );
+  if (sessionStorage.getItem('accessToken')) {
     const recentData = JSON.parse(sessionStorage.getItem("recent")).sort((a, b) => new Date(a.date) - new Date(b.date));
     return (
       <div>
@@ -32,17 +31,17 @@ export const Dashboard = () => {
             <p className="font-bold text-4xl p-5">Dashboard</p>
             <div className="flex flex-col">
               <div className="flex flex-row">
-              {JSON.parse(sessionStorage.getItem("drives")).map(drive => {
+              {JSON.parse(sessionStorage.getItem("drives")).map((drive,index) => {
                 if (drive.brand === 'gdrive') {
-                 return <GoogleDrive used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                 return <GoogleDrive used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index}/>;
                  } else if (drive.brand === 'dropbox') {
-                  return <DropBox used={drive.used} total={drive.total} used_percent={drive.used_percent} />;
+                  return <DropBox used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index}/>;
                  } else if (drive.brand === 'onedrive') {
-                 return <OneDrive used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                 return <OneDrive used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index}/>;
                  } else if (drive.brand === 'mega') {
-                 return <Mega used={drive.used} total={drive.total} used_percent={drive.used_percent}/>;
+                 return <Mega used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index}/>;
                 } else if (drive.brand === 'pcloud') {
-                 return <PCloud used={drive.used} total={drive.total} used_percent={drive.used_percent} />;
+                 return <PCloud used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index}/>;
                 } else {
                   return null;
             }
@@ -63,7 +62,7 @@ export const Dashboard = () => {
                   </Table.Head>
                   <Table.Body className="divide-y">
                   {recentData.map(recent => 
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={recent.id}>
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                         {recent.name}
                       </Table.Cell>

@@ -35,9 +35,9 @@ export const SideBar = () => {
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
           <Sidebar.Item  className="bg-[#5793FB] bg-opacity-20">
-            <p className='flex flex-row -mx-3'><LuHardDrive className='h-7 w-7 opacity-60 py-50'/><p className='pl-2'>Storage</p></p>
-            <p className='font-thin text-sm pt-3 pb-2'>{storageData.used} of {storageData.total} used</p>
-            <p className='pb-5'><Progress progress={storageData.used_percent} color="blue" /></p>
+            <span className='flex flex-row -mx-3'><LuHardDrive className='h-7 w-7 opacity-60 py-50'/><span className='pl-2'>Storage</span></span>
+            <span className='font-thin text-sm pt-3 pb-2'>{storageData.used} of {storageData.total} used</span>
+            <span className='pb-5'><Progress progress={storageData.used_percent} color="blue" /></span>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

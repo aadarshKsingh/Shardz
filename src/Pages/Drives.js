@@ -3,17 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import { SideBar } from '../Components/SideBar'
 import { Drive } from '../Components/Drive'
-import { useSessionStorage } from 'react-storage-complete'
+
 export const Drives = () => {
-    const [accessToken] = useSessionStorage('access_token', '');
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!sessionStorage.getItem(accessToken)) {
+        if (!sessionStorage.getItem('accessToken')) {
             navigate("/login");
         }
-    }, [accessToken, navigate]);
-    if (sessionStorage.getItem(accessToken)) {
+    });
+    if (sessionStorage.getItem('accessToken')) {
         return (
             <>
                 <header><NavBar pageTitle="Drives" /></header>

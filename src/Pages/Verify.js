@@ -1,29 +1,28 @@
 import {React, useEffect} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import cloud from '../Assets/cloud.png'
-import { useSessionStorage } from 'react-storage-complete';
 export const Verify = () => {
-    const [accessToken, setAccessToken] = useSessionStorage('access_token','');
     const navigate = useNavigate()
     const location = useLocation();
-    let vToken = '';
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    vToken = searchParams.get('token');
-  }, [location]);
-
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const token = searchParams.get('token');
+        if (token) {
+            sessionStorage.setItem("accessToken",token)
+        }
+    }, [location]);
   const verifyAccount = () => {
     fetch(process.env.SERVER + '/verify', {
             method: "POST",
             mode: "cors",
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({"token": vToken}),
+            body: JSON.stringify({"token": sessionStorage.getItem("accessToken")}),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.access_token) {
-          setAccessToken(data.access_token);
+          sessionStorage.setItem('accessToken',data.access_token);
           navigate('/');
         }
       })

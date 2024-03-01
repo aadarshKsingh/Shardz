@@ -13,10 +13,10 @@ export const UpdateDetails = () => {
     const [showToast, setShowToast] = useState(false);
     const [file,setFile] = useState('')
     useEffect(() => {
-      if (!sessionStorage.getItem(accessToken)) {
+      if (!sessionStorage.getItem('accessToken')) {
         navigate("/login");
       }
-    }, [accessToken, navigate]);
+    });
 
     const updateProfile = () => {
       const profileData = new FormData()
@@ -39,7 +39,7 @@ export const UpdateDetails = () => {
           console.log(error)
         });
     }
-    if (sessionStorage.getItem(accessToken)) {
+    if (sessionStorage.getItem('accessToken')) {
       return (
         <>
           <header><NavBar pageTitle="Update Details" /></header>

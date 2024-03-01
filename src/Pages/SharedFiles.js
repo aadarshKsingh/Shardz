@@ -5,17 +5,16 @@ import { Directory } from '../Components/Directory'
 import { Image } from '../Components/Image'
 import { Archive } from '../Components/Archive'
 import NavBar from '../Components/NavBar'
-import { useSessionStorage } from 'react-storage-complete'
 export const SharedFiles = () => {
-  const [accessToken] = useSessionStorage('access_token', '');
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!sessionStorage.getItem(accessToken)) {
+    if (!sessionStorage.getItem('accessToken')) {
       navigate("/login");
     }
-  }, [accessToken, navigate]);
-  if (sessionStorage.getItem(accessToken)) {
+  });
+  if (sessionStorage.getItem('accessToken')) {
     return (
       <>
         <header><NavBar pageTitle="Shared Files" /></header>

@@ -1,24 +1,24 @@
 import { React, useState } from 'react'
 import { Dropdown, Navbar } from 'flowbite-react';
 import cloud from '../Assets/cloud.png'
-import { useSessionStorage } from 'react-storage-complete';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar(props) {
-  const [accessToken, setAccessToken] = useSessionStorage('access_token', '');
+  // const [accessToken, setAccessToken] = useSessionStorage('access_token', '');
   const navigate = useNavigate()
   const [openModal, setOpenModal] = useState(false);
-  const [name, setName] = useSessionStorage('name', '');
-  const [email, setEmail] = useSessionStorage('email', '');
-  const [profilePicture, setProfilePicture] = useSessionStorage('profilePicture', '');
+  // const [name, setName] = useSessionStorage('name', '');
+  // const [email, setEmail] = useSessionStorage('email', '');
+  // const [profilePicture, setProfilePicture] = useSessionStorage('profilePicture', '');
 
   function onCloseModal() {
     setOpenModal(false);
-    setEmail('');
+    // setEmail('');
+    sessionStorage.setItem('useremail','')
   }
   const handleLogout = () => {
     onCloseModal()
-    setAccessToken('')
+    sessionStorage.setItem('accessToken','')
     navigate("/login")
   }
   return (
@@ -31,13 +31,14 @@ function NavBar(props) {
         <Dropdown
           arrowIcon={false}
           inline
+          onClick={openModal}
           label={
-            <p className='flex flex-row items-center font-bold'>{name}<img src={profilePicture} height="40" width="40" className='ml-5 rounded-full' alt={email} /></p>
+            <p className='flex flex-row items-center font-bold'>{sessionStorage.getItem("username")}<img src={sessionStorage.getItem("pfp")} height="40" width="40" className='ml-5 rounded-full' alt={sessionStorage.getItem("useremail")} /></p>
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm">{name}</span>
-            <span className="block truncate text-sm font-medium">{email}</span>
+            <span className="block text-sm">{sessionStorage.getItem('username')}</span>
+            <span className="block truncate text-sm font-medium">{sessionStorage.getItem("useremail")}</span>
           </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate("/update-details")}>Update Details</Dropdown.Item>
           <Dropdown.Item onClick={() => navigate("/update-password")}>Update Password</Dropdown.Item>

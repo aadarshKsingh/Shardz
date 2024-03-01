@@ -1,26 +1,26 @@
 import { React, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useSessionStorage } from 'react-storage-complete';
 import NavBar from '../Components/NavBar';
 import { SideBar } from '../Components/SideBar';
 import { Button, TextInput, Toast } from 'flowbite-react';
 import { MdOutlineDone } from "react-icons/md";
+
+
 export const UpdatePassword = () => {
-  const [accessToken] = useSessionStorage('access_token', '');
   const navigate = useNavigate();
   const [password, setPassword] = useState('')
   const [showToast, setShowToast] = useState(false);
   useEffect(() => {
-    if (!sessionStorage.getItem(accessToken)) {
+    if (!sessionStorage.getItem('accessToken')) {
       navigate("/login");
     }
-  }, [accessToken, navigate]);
+  });
 
   const updatePassword = () => {
     fetch(process.env.REACT_APP_SERVER + '/update-password', {
       method: "POST",
       mode: "cors",
-      headers: { 'content-type': 'application/json', "Authorization": sessionStorage.getItem(accessToken) },
+      headers: { 'content-type': 'application/json', "Authorization": sessionStorage.getItem('accessToken') },
       body: JSON.stringify({ "new_password": password }),
     })
       .then((response) => {
@@ -33,7 +33,7 @@ export const UpdatePassword = () => {
         console.log(error)
       });
   }
-  if (sessionStorage.getItem(accessToken)) {
+  if (sessionStorage.getItem('accessToken')) {
     return (
       <>
         <header><NavBar pageTitle="Update Details" /></header>
