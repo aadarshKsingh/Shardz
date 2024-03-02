@@ -13,7 +13,7 @@ export const Verify = () => {
         }
     }, [location]);
   const verifyAccount = () => {
-    fetch(process.env.SERVER + '/verify', {
+    fetch(process.env.REACT_APP_SERVER + '/verify', {
             method: "POST",
             mode: "cors",
             headers: { 'content-type': 'application/json' },
