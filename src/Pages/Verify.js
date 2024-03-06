@@ -15,7 +15,6 @@ export const Verify = () => {
   const verifyAccount = () => {
     fetch(process.env.REACT_APP_SERVER + '/verify', {
             method: "POST",
-            mode: "cors",
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({"token": sessionStorage.getItem("accessToken")}),
     })
@@ -23,7 +22,7 @@ export const Verify = () => {
       .then((data) => {
         if (data.access_token) {
           sessionStorage.setItem('accessToken',data.access_token);
-          navigate('/');
+          navigate('/login');
         }
       })
       .catch((error) => {
