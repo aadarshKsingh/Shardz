@@ -69,7 +69,7 @@ function App() {
            sessionStorage.setItem('storage',JSON.stringify(data.storage))
            sessionStorage.setItem('drives',JSON.stringify(data.drives))
            sessionStorage.setItem('recent',JSON.stringify(data.recent_files))
-          navigate("/")
+          navigate("/dashboard")
         })
       .catch(error => {
           console.error('Error fetching data:', error);

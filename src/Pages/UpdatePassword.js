@@ -26,7 +26,7 @@ export const UpdatePassword = () => {
       .then((response) => {
         if (response.status === 200) {
           setShowToast(true)
-          navigate("/")
+          navigate("/dashboard")
         }
       })
       .catch((error) => {

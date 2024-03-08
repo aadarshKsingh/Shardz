@@ -60,8 +60,6 @@ export const Landing = () => {
       <video
         width="800"
         height="600"
-        autoplay
-        muted
         poster="https://i.ibb.co/NF8Sf7m/poster.jpg"
         ref={videoRef}
       >

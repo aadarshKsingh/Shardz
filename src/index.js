@@ -16,6 +16,7 @@ import { ForgotPassword } from './Pages/ForgotPassword';
 import { PrivacyPolicy } from './Pages/PrivacyPolicy';
 import { TOS } from './Pages/TOS';
 import { Landing } from './Pages/Landing';
+import { About } from './Pages/About';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,6 +36,7 @@ root.render(
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/terms-of-service" element={<TOS />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
@@ -43,4 +45,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

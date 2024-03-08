@@ -16,7 +16,7 @@ export const SideBar = () => {
     <div className='flex flex-row'><Sidebar>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item  href="/" icon={LuLayoutDashboard}>
+          <Sidebar.Item  href="/dashboard" icon={LuLayoutDashboard}>
             Dashboard
           </Sidebar.Item>
           <Sidebar.Item
