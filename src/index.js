@@ -15,13 +15,15 @@ import reportWebVitals from './reportWebVitals';
 import { ForgotPassword } from './Pages/ForgotPassword';
 import { PrivacyPolicy } from './Pages/PrivacyPolicy';
 import { TOS } from './Pages/TOS';
+import { Landing } from './Pages/Landing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Landing/>}/>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myfiles" element={<MyFiles />} />
