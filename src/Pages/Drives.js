@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import { SideBar } from '../Components/SideBar'
 import { Drive } from '../Components/Drive'
-
+import { BrowserView, MobileView } from 'react-device-detect'
+import NavBarMobile from '../Components/NavBarMobile'
 export const Drives = () => {
     const navigate = useNavigate();
 
@@ -15,9 +16,16 @@ export const Drives = () => {
     if (sessionStorage.getItem('accessToken')) {
         return (
             <>
-                <header><NavBar pageTitle="Drives" /></header>
-                <div className='flex flex-row'><SideBar />
-                    <div className="grid grid-flow-col gap-4">
+                <header>
+                    <BrowserView><NavBar pageTitle="Drives" />
+                    </BrowserView>
+                    <MobileView>
+                        <NavBarMobile pageTitle="Drives" />
+
+                    </MobileView>
+                </header>
+                <div className='flex lg:flex-row'><BrowserView><SideBar /></BrowserView>
+                    <div className="grid grid-flow-col lg:gap-4 gap-2 grid-cols-4">
                         <Drive name="realityislie" />
                         <Drive name="quackquack198" />
                         <Drive name="fuckgates" />

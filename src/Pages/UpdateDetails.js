@@ -1,12 +1,13 @@
 import {React,useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useSessionStorage } from 'react-storage-complete';
 import NavBar from '../Components/NavBar';
 import { SideBar } from '../Components/SideBar';
 import { Button, TextInput, Toast } from 'flowbite-react';
 import { MdOutlineDone } from "react-icons/md";
+import { BrowserView, MobileView } from 'react-device-detect'
+import NavBarMobile from '../Components/NavBarMobile'
+
 export const UpdateDetails = () => {
-    const [accessToken] = useSessionStorage('access_token', '');
     const navigate = useNavigate();
     const [username,setUsername] = useState('')
     const [email,setEmail] = useState('')
@@ -26,11 +27,12 @@ export const UpdateDetails = () => {
       console.log("size",file[0])
       fetch(process.env.REACT_APP_SERVER+'/update-profile', {
         method: "POST",
-        headers: {'Authorization' : sessionStorage.getItem(accessToken) },
+        headers: {'Authorization' : sessionStorage.getItem('accessToken') },
         body: profileData
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data)
            if(data.message==="Profile updated successfully"){
             setShowToast(true)
            }
@@ -42,9 +44,16 @@ export const UpdateDetails = () => {
     if (sessionStorage.getItem('accessToken')) {
       return (
         <>
-          <header><NavBar pageTitle="Update Details" /></header>
+          <header>
+          <BrowserView><NavBar pageTitle="Update Details"/>
+          </BrowserView>
+          <MobileView>
+          <NavBarMobile pageTitle="Update Details"/>
+          
+</MobileView>
+        </header>
           <div className='w-screen flex flex-row'>
-            <SideBar />
+            <BrowserView><SideBar /></BrowserView>
             <div className="flex flex-row justify-center w-96 place-items-center px-96 mx-48">
             <form className="flex w-96 flex-col gap-4">
         <div>
@@ -52,8 +61,8 @@ export const UpdateDetails = () => {
            
             <p className='font-thin text-4xl'>Update Details</p>
           </div>
-          <TextInput value={username} onChange={(e) => { setUsername(e.target.value)}} className='pb-6' color="blue" id="username1" type="text"  placeholder="Name" required />
-          <TextInput value={email} onChange={(e) => { setEmail(e.target.value)}} color="blue" id="email1" type="email" placeholder="Email" required />
+          <TextInput defaultValue={sessionStorage.getItem("username")} onChange={(e) => { setUsername(e.target.value)}} className='pb-6' color="blue" id="username1" type="text"  placeholder="Name" required />
+          <TextInput defaultValue={sessionStorage.getItem("useremail")} onChange={(e) => { setEmail(e.target.value)}} color="blue" id="email1" type="email" placeholder="Email" required />
           <input type="file" className='p-4' onChange={(e) => { setFile(e.target.files) }}/>
         </div>
         <div className='flex flex-col'>

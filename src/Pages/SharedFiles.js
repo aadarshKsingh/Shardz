@@ -5,6 +5,8 @@ import { Directory } from '../Components/Directory'
 import { Image } from '../Components/Image'
 import { Archive } from '../Components/Archive'
 import NavBar from '../Components/NavBar'
+import { BrowserView, MobileView } from 'react-device-detect'
+import NavBarMobile from '../Components/NavBarMobile'
 export const SharedFiles = () => {
 
   const navigate = useNavigate();
@@ -17,10 +19,17 @@ export const SharedFiles = () => {
   if (sessionStorage.getItem('accessToken')) {
     return (
       <>
-        <header><NavBar pageTitle="Shared Files" /></header>
+        <header>
+          <BrowserView><NavBar pageTitle="Shared Files" />
+          </BrowserView>
+          <MobileView>
+            <NavBarMobile pageTitle="Shared Files" />
+
+          </MobileView>
+        </header>
         <div className='w-screen flex flex-row'>
-          <SideBar />
-          <div className="grid grid-flow-col gap-4">
+          <BrowserView><SideBar /></BrowserView>
+          <div className="grid lg:grid-flow-col grid-flow-row lg:gap-4 gap-2 grid-cols-42">
             <Directory name="Documents" />
             <Directory name="Downloads" />
             <Directory name="Pictures" />

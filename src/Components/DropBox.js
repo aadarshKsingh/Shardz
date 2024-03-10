@@ -3,11 +3,15 @@ import { Card,Progress } from 'flowbite-react'
 import { DiDropbox } from 'react-icons/di'
 export const DropBox = (props) => {
   return (
-    <Card className="rounded-3xl shadow-xl px-5 mx-5 bg-gradient-to-r from-[#007ee5] via-[#3280fe] to-[#0061FE] opacity-70">
-                <DiDropbox className=" h-36 w-36 invert" />
-                <p className="text-2xl -my-2 invert">Dropbox</p>
-                <Progress progress={props.used_percent} className="border" color="blue" />
-                <p className="invert opacity-65">{props.used} / {props.total}</p>
-              </Card>
+    <Card className="lg:rounded-3xl rounded-2xl shadow-xl px-5 lg:my-0 my-1 lg:mx-2 mx-5 bg-gradient-to-r from-[#007ee5] via-[#3280fe] to-[#0061FE] opacity-70">
+  <div className='flex lg:flex-col flex-row justify-center'>
+    <DiDropbox className=" lg:h-36 lg:w-36 w-16 h-12 lg:ml-0 -ml-6 invert" />
+    <div className='flex lg:flex-col flex-row'>
+      <p className="lg:text-2xl text-lg py-3 lg:my-0 lg:py-2 pr-5 invert">Dropbox</p>
+      <Progress progress={props.used_percent} className="lg:my-2" color="blue" />
+      <p className="invert opacity-65 py-3">{props.used} / {props.total}</p>
+    </div>
+  </div>
+</Card>
   )
 }

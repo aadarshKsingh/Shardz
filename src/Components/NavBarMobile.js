@@ -1,8 +1,11 @@
 import { React, useState } from "react";
-import { Button, Dropdown, Navbar, Modal, Avatar } from "flowbite-react";
+import { Button, Dropdown, Navbar, Modal, Avatar,Progress } from "flowbite-react";
 import cloud from "../Assets/cloud.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
+import { slide as Menu } from 'react-burger-menu'
+import { LuFileStack, LuLayers, LuLayoutDashboard, LuShare2,LuHardDrive } from "react-icons/lu";
+import { CiMenuBurger } from "react-icons/ci";
 function NavBar(props) {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
@@ -17,9 +20,88 @@ function NavBar(props) {
     sessionStorage.setItem("accessToken", "");
     navigate("/login");
   };
+  const storageData = JSON.parse(sessionStorage.getItem('storage'))
+
+  var styles = {
+    bmBurgerButton: {
+      position: 'fixed',
+      width: '36px',
+      height: '30px',
+      left: '13px',
+      top: '13px'
+    },
+    bmBurgerBars: {
+      background: '#373a47'
+    },
+    bmBurgerBarsHover: {
+      background: '#a90000'
+    },
+    bmCrossButton: {
+      height: '24px',
+      width: '24px',
+      left:'250px'
+    },
+    bmCross: {
+      background: '#bdc3c7'
+    },
+    bmMenuWrap: {
+      position: 'fixed',
+      height: '100%'
+    },
+    bmMenu: {
+      background: '#F8F8FF',
+      border:'2px solid grey',
+      borderRadius: '20px',
+      marginLeft:'-60px',
+      marginRight:'100px',
+      marginTop:'-25px',
+      fontSize: '1.15em',
+      paddingLeft: '50px'
+    },
+    bmMorphShape: {
+      fill: '#373a47'
+    },
+    bmItemList: {
+      paddingTop:"30px",
+      color: 'black',
+      display: 'flex',
+      flexDirection:'column'
+      // padding: '0.8em'
+    },
+    bmItem: {
+      display: 'inline-block',
+      paddingTop:'10px',
+      paddingBottom:'10px',
+      paddingLeft:'20px'
+    },
+    bmOverlay: {
+      background: 'transparent'
+    }
+  }
+  
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand href="/">
+      <Menu styles={styles} customBurgerIcon={<CiMenuBurger/>}>
+        <NavLink to="/dashboard"><p id="dashboard" className="flex flex-row" href="/dashboard"><LuLayoutDashboard size="25"/><span className="px-3">Dashboard</span></p></NavLink>
+        <NavLink to="/myfiles"><p id="myfiles" className="flex flex-row" href="/myfiles"><LuFileStack size="25"/> <span className="px-3">My Files</span></p></NavLink>
+        <NavLink to="/sharedfiles"><p id="sharedfiles" className="flex flex-row" href="/sharedfiles"><LuShare2 size="25"/> <span className="px-3">SharedFiles</span></p></NavLink>
+        <NavLink to="/drives"><p id="drives" className="flex flex-row" href="/drives"><LuLayers size="25"/> <span className="px-3">Drives</span></p></NavLink>
+        <div className="bg-[#5793FB] bg-opacity-20 mx-3 rounded-xl mt-5">
+        <span className='flex flex-row -mx-3'><LuHardDrive className='h-7 w-7 opacity-60 py-50'/><span className='pl-2'>Storage</span></span>
+            <span className='font-thin text-sm pt-3 pb-2'>{storageData.used} of {storageData.total} used</span>
+            <span className='pb-5'><Progress progress={storageData.used_percent} color="blue" /></span>
+        </div>
+      </Menu>
+      <Navbar.Collapse>
+        <Navbar.Link href="#" active>
+          Home
+        </Navbar.Link>
+        <Navbar.Link href="/dashboard">Dashboard</Navbar.Link>
+        <Navbar.Link href="/myfiles">MyFiles</Navbar.Link>
+        <Navbar.Link href="/sharedfiles">SharedFiles</Navbar.Link>
+        <Navbar.Link href="/drives">Drives</Navbar.Link>
+      </Navbar.Collapse>
+      <Navbar.Brand href="/" className="ml-5 -mr-20">
         <img src={cloud} className="mr-3 h-6 sm:h-9" alt="Shardz" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Shardz
@@ -27,7 +109,7 @@ function NavBar(props) {
         {props.pageTitle === "Drives" ? (
           <Button
             color="blue"
-            className="bg-[#5793FB] ml-24"
+            className="bg-[#5793FB] ml-5"
             onClick={(e) => {
               e.preventDefault();
               setDriveModal(true);
