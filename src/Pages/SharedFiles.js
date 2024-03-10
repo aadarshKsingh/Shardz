@@ -29,7 +29,7 @@ export const SharedFiles = () => {
         </header>
         <div className='w-screen flex flex-row'>
           <BrowserView><SideBar /></BrowserView>
-          <div className="grid lg:grid-flow-col grid-flow-row lg:gap-4 gap-2 grid-cols-42">
+          <div className="grid lg:grid-flow-col grid-flow-row lg:gap-4 gap-2 grid-cols-4">
             <Directory name="Documents" />
             <Directory name="Downloads" />
             <Directory name="Pictures" />
