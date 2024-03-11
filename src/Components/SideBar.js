@@ -7,30 +7,30 @@ import {
   LuHardDrive,
   LuLayers
 } from "react-icons/lu"
+import { useNavigate } from 'react-router-dom'
 
 export const SideBar = () => {
   const storageData = JSON.parse(sessionStorage.getItem('storage'))
   const driveData = JSON.parse(sessionStorage.getItem('drives'))
-
+  const navigate = useNavigate()
   return (
     <div className='flex flex-row -px-20'><Sidebar className='lg:pr-0 pr-0'>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item  href="/dashboard" icon={LuLayoutDashboard}>
-            Dashboard
+          <Sidebar.Item icon={LuLayoutDashboard}>
+            <p onClick={()=>navigate("/dashboard")} className="pr-20">Dashboard</p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="/myfiles"
             icon={LuFileStack}
             labelColor="dark"
           >
-            My Files
+            <p onClick={()=>navigate("/myfiles")} className="pr-20">My Files</p>
           </Sidebar.Item>
-          <Sidebar.Item  href="/sharedfiles"  icon={LuShare2}  >
-            Shared Files
+          <Sidebar.Item icon={LuShare2}  >
+            <p onClick={()=>navigate("/sharedfiles")} className="pr-20">Shared Files</p>
           </Sidebar.Item>
-          <Sidebar.Item  href="/drives" icon={LuLayers} labelColor="dark" label={driveData.length}>
-            Drives
+          <Sidebar.Item icon={LuLayers} labelColor="dark" label={driveData.length}>
+            <p onClick={()=>navigate("/drives")} className="pr-20">Drives</p>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>

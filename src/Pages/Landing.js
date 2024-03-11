@@ -105,8 +105,8 @@ export const Landing = () => {
       <footer>
         <Footer container className="shadow-none">
           <Footer.LinkGroup>
-            <Footer.Link href="/privacy-policy">Privacy Policy</Footer.Link>
-            <Footer.Link href="/terms-of-service">Terms of service</Footer.Link>
+            <Footer.Link><p onClick={()=>navigate("/privacy-policy")}>Privacy Policy</p></Footer.Link>
+            <Footer.Link><p onClick={()=>navigate("/terms-of-service")}>Terms of Service</p></Footer.Link>
           </Footer.LinkGroup>
         </Footer>
       </footer>

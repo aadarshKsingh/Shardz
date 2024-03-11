@@ -40,7 +40,7 @@ export const Register = () => {
               <img src={cloud} alt="cloud" />
               <p className="font-thin text-7xl">Sign Up</p>
               <div className="mt-5 -mb-10 p-0">
-                {register ===false? (
+                {register ? (
                   <Alert color="info">
                     <span className="font-medium">{message}</span>
                   </Alert>
