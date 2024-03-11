@@ -48,7 +48,7 @@ export const UpdatePassword = () => {
         </header>
         <div className='w-screen flex flex-row'>
           <BrowserView><SideBar /></BrowserView>
-          <div className="flex flex-row justify-center w-96 place-items-center px-96 mx-48">
+          <div className="flex flex-row justify-center lg:w-96 w-24 place-items-center lg:px-96 px-12 mx-48">
             <form className="flex w-96 flex-col gap-4" onSubmit={(e) => {
               e.preventDefault();
               updatePassword();
