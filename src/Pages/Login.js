@@ -70,6 +70,24 @@ function App() {
         sessionStorage.setItem("drives", JSON.stringify(data.drives));
         sessionStorage.setItem("recent", JSON.stringify(data.recent_files));
         sessionStorage.setItem("burger","false")
+        handleDrives()
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+  const handleDrives = () => {
+    fetch(process.env.REACT_APP_SERVER + "/drives", {
+      method: "GET",
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken"),
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        const addedDrives = data.map(item => item.drive_name);
+        sessionStorage.setItem("addedDrives",addedDrives)
         navigate("/dashboard");
       })
       .catch((error) => {

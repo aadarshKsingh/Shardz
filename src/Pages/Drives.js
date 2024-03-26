@@ -26,10 +26,9 @@ export const Drives = () => {
                 </header>
                 <div className='flex lg:flex-row'><BrowserView><SideBar /></BrowserView>
                     <div className="grid grid-flow-col lg:gap-4 gap-2 grid-cols-4">
-                        <Drive name="Dropbox" />
-                        <Drive name="OneDrive" />
-                        <Drive name="Google Drive" />
-                        <Drive name="Mega" />
+                        {(sessionStorage.getItem("addedDrives")).split(",").map((drive,index)=>{
+                            return <Drive name={drive}/>
+                        })}
                     </div>
                 </div>
             </>
