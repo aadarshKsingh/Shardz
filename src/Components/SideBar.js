@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const SideBar = () => {
   const storageData = JSON.parse(sessionStorage.getItem('storage'))
-  const driveData = JSON.parse(sessionStorage.getItem('drives'))
+  const addedDrives = (sessionStorage.getItem("addedDrives")).split(",")
   const navigate = useNavigate()
   return (
     <div className='flex flex-row -px-20'><Sidebar className='lg:pr-0 pr-0'>
@@ -29,7 +29,7 @@ export const SideBar = () => {
           <Sidebar.Item icon={LuShare2}  >
             <p onClick={()=>navigate("/sharedfiles")} className="pr-20">Shared Files</p>
           </Sidebar.Item>
-          <Sidebar.Item icon={LuLayers} labelColor="dark" label={driveData.length}>
+          <Sidebar.Item icon={LuLayers} labelColor="dark" label={addedDrives.length}>
             <p onClick={()=>navigate("/drives")} className="pr-20">Drives</p>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
