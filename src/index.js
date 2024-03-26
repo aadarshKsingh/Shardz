@@ -11,7 +11,7 @@ import { SharedFiles } from './Pages/SharedFiles';
 import { Verify } from './Pages/Verify';
 import { UpdateDetails } from './Pages/UpdateDetails';
 import { UpdatePassword } from './Pages/UpdatePassword';
-import reportWebVitals from './reportWebVitals';
+import { Success } from './Pages/Success';
 import { ForgotPassword } from './Pages/ForgotPassword';
 import { PrivacyPolicy } from './Pages/PrivacyPolicy';
 import { TOS } from './Pages/TOS';
@@ -37,6 +37,7 @@ root.render(
           <Route path="/terms-of-service" element={<TOS />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about" element={<About />} />
+          <Route path="/success" element={<Success />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

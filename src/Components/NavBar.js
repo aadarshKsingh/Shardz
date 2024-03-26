@@ -7,7 +7,7 @@ function NavBar(props) {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [driveModal, setDriveModal] = useState(false);
-  
+
   function onCloseModal() {
     setOpenModal(false);
     sessionStorage.setItem("useremail", "");
@@ -20,10 +20,16 @@ function NavBar(props) {
 
   const getOauth = async () => {
     try {
-      const response = await fetch(process.env.REACT_APP_SERVER + "/add-storage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: sessionStorage.getItem('accessToken') },
-      });
+      const response = await fetch(
+        process.env.REACT_APP_SERVER + "/add-storage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
@@ -65,15 +71,16 @@ function NavBar(props) {
           label={
             <p className="flex flex-row items-center font-bold">
               <span className="px-5">{sessionStorage.getItem("username")}</span>
-              {sessionStorage.getItem("pfp") === "null" ?
+              {sessionStorage.getItem("pfp") === "null" ? (
                 <FaRegUser />
-                : <Avatar
+              ) : (
+                <Avatar
                   img={sessionStorage.getItem("pfp")}
                   height="40"
                   width="40"
                   className="ml-5 rounded-full"
                 />
-              }
+              )}
             </p>
           }
         >
@@ -100,21 +107,36 @@ function NavBar(props) {
           <Modal.Header>Add a drive</Modal.Header>
           <Modal.Body>
             <div className="space-x-6 flex flex-row">
-              {JSON.parse(sessionStorage.getItem("available_drives")).map((drive)=>{
-                  return  <div className="flex flex-col" onClick={()=>window.open(drive.url, '_blank', 'noopener,noreferrer')}>
-                  <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    <img
-                      className="mt-3"
-                      src={drive.logo}
-                      alt={drive.drive}
-                      height={70}
-                      width={70}
-                    />
-                  </p>
-                  <p className="pl-5 pt-5">{drive.name}</p>
-                </div>
-              }
-              )}
+              {JSON.parse(sessionStorage.getItem("available_drives")) === null
+                ? null
+                : JSON.parse(sessionStorage.getItem("available_drives")).map(
+                    (drive) => {
+                      return (
+                        <div
+                          key={drive.name}
+                          className="flex flex-col"
+                          onClick={() =>
+                            window.open(
+                              drive.url,
+                              "_blank",
+                              "noopener,noreferrer"
+                            )
+                          }
+                        >
+                          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            <img
+                              className="mt-3"
+                              src={drive.logo}
+                              alt={drive.drive}
+                              height={70}
+                              width={70}
+                            />
+                          </p>
+                          <p className="pl-5 pt-5">{drive.name}</p>
+                        </div>
+                      );
+                    }
+                  )}
             </div>
           </Modal.Body>
           <Modal.Footer></Modal.Footer>

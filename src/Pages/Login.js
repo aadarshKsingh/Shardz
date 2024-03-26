@@ -14,6 +14,7 @@ function App() {
     e.preventDefault();
     fetch(process.env.REACT_APP_SERVER + "/login", {
       method: "POST",
+      cors: "no-cors",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email: userEmail, password: userPassword }),
     })
