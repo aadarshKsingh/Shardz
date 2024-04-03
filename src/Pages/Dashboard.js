@@ -18,9 +18,36 @@ export const Dashboard = () => {
   useEffect(() => {
     if (!sessionStorage.getItem('accessToken')) {
       navigate("/login");
+    } else {
+      fetchDataForRecentFiles();
     }
-  },);
+  },[]);
+
+  const fetchDataForRecentFiles = async () => {
+    try {
+      const response = await fetch(process.env.REACT_APP_SERVER + "/files", {
+        method: "POST",
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+          "content-type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await response.json();
+      sessionStorage.setItem("recent_files", JSON.stringify(data));
+      console.log(sessionStorage.getItem("recent_files"));
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
   if (sessionStorage.getItem('accessToken')) {
+
     const recentDataString = sessionStorage.getItem("recent_files");
     let recentData = [];
     const drivesDataString = sessionStorage.getItem("drives");
