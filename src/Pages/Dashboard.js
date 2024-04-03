@@ -105,7 +105,7 @@ export const Dashboard = () => {
                     <Table.Head>
                       <Table.HeadCell>File Name</Table.HeadCell>
                       <Table.HeadCell></Table.HeadCell>
-                      <Table.HeadCell>Date</Table.HeadCell>
+                      {/* <Table.HeadCell>Date</Table.HeadCell> */}
                       <Table.HeadCell>Size</Table.HeadCell>
                       <Table.HeadCell>
                         <span className="sr-only">Edit</span>
@@ -118,8 +118,8 @@ export const Dashboard = () => {
                             {recent.name}
                           </Table.Cell>
                           <Table.Cell></Table.Cell>
-                          <Table.Cell className='whitespace-nowrap'>{recent.date}</Table.Cell>
-                          <Table.Cell className='whitespace-nowrap'>{recent.size}</Table.Cell>
+                          {/* <Table.Cell className='whitespace-nowrap'>{recent.date}</Table.Cell> */}
+                          <Table.Cell className='whitespace-nowrap'>{(recent.size / 1048576).toFixed(2)} MB</Table.Cell>
                           <Table.Cell className='whitespace-nowrap'><Button onClick={() => downloadFile(recent.id, recent.name)}>Download</Button></Table.Cell>
                         </Table.Row>
                       )}
