@@ -126,9 +126,9 @@ export const SideBar = () => {
           >
             <p onClick={() => navigate("/myfiles")} className="pr-20">My Files</p>
           </Sidebar.Item>
-          <Sidebar.Item icon={LuShare2}  >
+          {/* <Sidebar.Item icon={LuShare2}  >
             <p onClick={() => navigate("/sharedfiles")} className="pr-20">Shared Files</p>
-          </Sidebar.Item>
+          </Sidebar.Item> */}
           <Sidebar.Item icon={LuLayers} labelColor="dark" label={addedDrives === null ? 0 : addedDrives.length}>
             <p onClick={() => navigate("/drives")} className="pr-20">Drives</p>
           </Sidebar.Item>

@@ -66,7 +66,6 @@ function App() {
     })
       .then((response) => response.json())
       .then(async (data) => {
-        console.log(data)
         if (data.storage) {
           sessionStorage.setItem("storage", JSON.stringify(data.storage));
         }
@@ -119,15 +118,33 @@ function App() {
           sessionStorage.setItem("addedDrives", addedDrives);
           sessionStorage.setItem("driveDetails", driveDetails);
         }
+        handleFiles()
     
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+  const handleFiles = () => {
+    fetch(process.env.REACT_APP_SERVER + "/files", {
+      method: "POST",
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken"),
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        
+         sessionStorage.setItem("recent_files",JSON.stringify(data))
+         console.log(sessionStorage.getItem("recent_files"))
         navigate("/dashboard");
 
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  };
-  
+  }
   return (
     <div>
       <div className="flex flex-col w-screen h-screen justify-center text-center items-center">

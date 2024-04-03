@@ -29,13 +29,16 @@ export const MyFiles = () => {
             <div className='w-screen flex flex-row'>
                 <BrowserView><SideBar /></BrowserView>
                 <div className="grid lg:grid-flow-col grid-flow-row lg:gap-4 gap-2 grid-cols-4">
-                    <Directory name="Documents" />
+                    {/* <Directory name="Documents" />
                     <Directory name="Downloads" />
                     <Directory name="Pictures" />
                     <Directory name="Videos" />
                     <Image name="file.txt" />
                     <Image name="file.txt" />
-                    <Archive name="worker.js.zip" />
+                    <Archive name="worker.js.zip" /> */}
+                    <div>
+                        <p>Work in Progress............</p>
+                    </div>
                 </div>
             </div>
         </>

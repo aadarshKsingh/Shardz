@@ -2,7 +2,7 @@ import { React, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NavBarMobile from "../Components/NavBarMobile";
 import { SideBar } from "../Components/SideBar";
-import { Table } from 'flowbite-react';
+import { Table, Button } from 'flowbite-react';
 import { OneDrive } from "../Components/OneDrive";
 import { GoogleDrive } from "../Components/GoogleDrive";
 import { Mega } from "../Components/Mega";
@@ -21,19 +21,43 @@ export const Dashboard = () => {
     }
   },);
   if (sessionStorage.getItem('accessToken')) {
-    const recentDataString = sessionStorage.getItem("recent");
+    const recentDataString = sessionStorage.getItem("recent_files");
     let recentData = [];
     const drivesDataString = sessionStorage.getItem("drives");
 
     let drivesData = [];
-    if (recentDataString !== "undefined" && recentDataString.length!==0) {
-      console.log(recentDataString)
-      recentData = JSON.parse(recentDataString).sort((a, b) => new Date(a.date) - new Date(b.date));
+    if (recentDataString !== "undefined" && recentDataString.length !== 0) {
+      console.log(JSON.parse(recentDataString))
+      recentData = JSON.parse(recentDataString)
+    }
+    if (drivesDataString !== "undefined") {
+      drivesData = JSON.parse(drivesDataString)
     }
 
-    if (drivesDataString !== "undefined") {
-      console.log(drivesDataString)
-      drivesData = JSON.parse(drivesDataString)
+    const downloadFile = async (id, name) => {
+      fetch(process.env.REACT_APP_SERVER + "/download", {
+        method: "POST",
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ "file_id": id })
+      })
+        .then(async (response) => {
+          console.log(id)
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          URL.revokeObjectURL(blobUrl);
+        })
+
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     }
 
 
@@ -52,7 +76,7 @@ export const Dashboard = () => {
             <SideBar />
           </BrowserView>
           <div className="lg:m-0 -ml-0">
-            <p className="font-bold lg:text-4xl text-lg lg:p-5 p-1">Dashboard</p>
+            <p className="font-bold lg:text-4xl text-lg lg:p-5 p-1">Drives</p>
             <div className="flex flex-col">
               <div className="flex lg:flex-row flex-col">
                 {Object.entries(drivesData).map(([driveKey, driveValue]) => {
@@ -67,39 +91,41 @@ export const Dashboard = () => {
                   } else if (driveValue.drive_name === 'PCloud') {
                     return <PCloud used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
                   } else if (driveValue.drive_name === 'Box') {
-                    return <Box used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />; 
-                  }else {
+                    return <Box used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else {
                     return null;
                   }
                 })}
 
               </div>
-              {recentData.length!==0 ? <p><p className="font-bold lg:text-4xl text-lg lg:p-5 p-2">Recent Files</p>
-              <div className="overflow-x-auto lg:ml-5 ml-5">
-                <Table>
-                  <Table.Head>
-                    <Table.HeadCell>File Name</Table.HeadCell>
-                    <Table.HeadCell></Table.HeadCell>
-                    <Table.HeadCell>Date</Table.HeadCell>
-                    <Table.HeadCell>Size</Table.HeadCell>
-                    <Table.HeadCell>
-                      <span className="sr-only">Edit</span>
-                    </Table.HeadCell>
-                  </Table.Head>
-                  <Table.Body className="divide-x-0">
-                    {recentData.map(recent =>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={recent.id}>
-                        <Table.Cell className="whitespace-nowrap p-1  text-gray-900 dark:text-white">
-                          {recent.name}
-                        </Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell className='whitespace-nowrap'>{recent.date}</Table.Cell>
-                        <Table.Cell className='whitespace-nowrap'>{recent.size}</Table.Cell>
-                      </Table.Row>
-                    )}
-                  </Table.Body>
-                </Table>
-              </div> </p>: null}
+              {<p><p className="font-bold lg:text-4xl text-lg lg:p-5 p-2">Recent Files</p>
+                <div className="overflow-x-auto lg:ml-5 ml-5">
+                  <Table>
+
+                    <Table.Head>
+                      <Table.HeadCell>File Name</Table.HeadCell>
+                      <Table.HeadCell></Table.HeadCell>
+                      <Table.HeadCell>Date</Table.HeadCell>
+                      <Table.HeadCell>Size</Table.HeadCell>
+                      <Table.HeadCell>
+                        <span className="sr-only">Edit</span>
+                      </Table.HeadCell>
+                    </Table.Head>
+                    <Table.Body className="divide-x-0">
+                      {recentData.map(recent =>
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={recent.id}>
+                          <Table.Cell className="whitespace-nowrap p-1  text-gray-900 dark:text-white">
+                            {recent.name}
+                          </Table.Cell>
+                          <Table.Cell></Table.Cell>
+                          <Table.Cell className='whitespace-nowrap'>{recent.date}</Table.Cell>
+                          <Table.Cell className='whitespace-nowrap'>{recent.size}</Table.Cell>
+                          <Table.Cell className='whitespace-nowrap'><Button onClick={() => downloadFile(recent.id, recent.name)}>Download</Button></Table.Cell>
+                        </Table.Row>
+                      )}
+                    </Table.Body>
+                  </Table>
+                </div> </p>}
               <div>
               </div>
             </div>
