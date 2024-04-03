@@ -8,6 +8,7 @@ import { GoogleDrive } from "../Components/GoogleDrive";
 import { Mega } from "../Components/Mega";
 import { DropBox } from "../Components/DropBox";
 import { PCloud } from "../Components/PCloud";
+import { Box } from "../Components/Box";
 import { BrowserView, MobileView } from 'react-device-detect';
 import NavBar from '../Components/NavBar';
 export const Dashboard = () => {
@@ -20,7 +21,22 @@ export const Dashboard = () => {
     }
   },);
   if (sessionStorage.getItem('accessToken')) {
-    const recentData = JSON.parse(sessionStorage.getItem("recent")).sort((a, b) => new Date(a.date) - new Date(b.date));
+    const recentDataString = sessionStorage.getItem("recent");
+    let recentData = [];
+    const drivesDataString = sessionStorage.getItem("drives");
+
+    let drivesData = [];
+    if (recentDataString !== "undefined" && recentDataString.length!==0) {
+      console.log(recentDataString)
+      recentData = JSON.parse(recentDataString).sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    if (drivesDataString !== "undefined") {
+      console.log(drivesDataString)
+      drivesData = JSON.parse(drivesDataString)
+    }
+
+
     return (
       <div className='-mb-96'>
         <header>
@@ -39,24 +55,26 @@ export const Dashboard = () => {
             <p className="font-bold lg:text-4xl text-lg lg:p-5 p-1">Dashboard</p>
             <div className="flex flex-col">
               <div className="flex lg:flex-row flex-col">
-                {JSON.parse(sessionStorage.getItem("drives")).map((drive, index) => {
-                  if (drive.brand === 'gdrive') {
-                    return <GoogleDrive used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index} />;
-                  } else if (drive.brand === 'dropbox') {
-                    return <DropBox used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index} />;
-                  } else if (drive.brand === 'onedrive') {
-                    return <OneDrive used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index} />;
-                  } else if (drive.brand === 'mega') {
-                    return <Mega used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index} />;
-                  } else if (drive.brand === 'pcloud') {
-                    return <PCloud used={drive.used} total={drive.total} used_percent={drive.used_percent} key={index} />;
-                  } else {
+                {Object.entries(drivesData).map(([driveKey, driveValue]) => {
+                  if (driveValue.drive_name === 'Google Drive') {
+                    return <GoogleDrive used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else if (driveValue.drive_name === 'Dropbox') {
+                    return <DropBox used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else if (driveValue.drive_name === 'OneDrive') {
+                    return <OneDrive used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else if (driveValue.drive_name === 'Mega') {
+                    return <Mega used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else if (driveValue.drive_name === 'PCloud') {
+                    return <PCloud used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
+                  } else if (driveValue.drive_name === 'Box') {
+                    return <Box used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />; 
+                  }else {
                     return null;
                   }
                 })}
 
               </div>
-              <p className="font-bold lg:text-4xl text-lg lg:p-5 p-2">Recent Files</p>
+              {recentData.length!==0 ? <p><p className="font-bold lg:text-4xl text-lg lg:p-5 p-2">Recent Files</p>
               <div className="overflow-x-auto lg:ml-5 ml-5">
                 <Table>
                   <Table.Head>
@@ -81,7 +99,7 @@ export const Dashboard = () => {
                     )}
                   </Table.Body>
                 </Table>
-              </div>
+              </div> </p>: null}
               <div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import cloud from "../Assets/cloud.png";
 import { Button, TextInput, Alert } from "flowbite-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { json, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
@@ -66,10 +66,34 @@ function App() {
     })
       .then((response) => response.json())
       .then(async (data) => {
-        sessionStorage.setItem("storage", JSON.stringify(data.storage));
-        sessionStorage.setItem("drives", JSON.stringify(data.drives));
-        sessionStorage.setItem("recent", JSON.stringify(data.recent_files));
-        sessionStorage.setItem("burger","false")
+        console.log(data)
+        if (data.storage) {
+          sessionStorage.setItem("storage", JSON.stringify(data.storage));
+        }
+        else {
+          sessionStorage.setItem("storage", "")
+        }
+        if (data.drives) {
+          sessionStorage.setItem("drives", JSON.stringify(data.drives));
+        } else {
+          sessionStorage.setItem("drives", "")
+        }
+        if (data.recent_files) {
+          sessionStorage.setItem("recent", JSON.stringify(data.recent_files))
+        } else {
+          sessionStorage.setItem("recent", "")
+        }
+        sessionStorage.setItem("burger", "false")
+        let totalUsed = 0;
+        let totalStorage = 0;
+
+        for (let drive in data.drives) {
+          totalUsed += data.drives[drive].used;
+          totalStorage += data.drives[drive].total;
+        }
+          
+        sessionStorage.setItem("total",totalStorage)
+        sessionStorage.setItem("remaining",totalUsed)
         handleDrives()
       })
       .catch((error) => {
@@ -86,14 +110,24 @@ function App() {
     })
       .then((response) => response.json())
       .then(async (data) => {
-        const addedDrives = data.map(item => item.drive_name);
-        sessionStorage.setItem("addedDrives",addedDrives)
+        if (data.message === "No drives added") {
+          sessionStorage.setItem("addedDrives", "")
+          sessionStorage.setItem("driveDetails", "")
+        } else {
+          const addedDrives = data.map(item => item.drive_name);
+          const driveDetails = data.map(item => JSON.stringify(item))
+          sessionStorage.setItem("addedDrives", addedDrives);
+          sessionStorage.setItem("driveDetails", driveDetails);
+        }
+    
         navigate("/dashboard");
+
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
+  
   return (
     <div>
       <div className="flex flex-col w-screen h-screen justify-center text-center items-center">
