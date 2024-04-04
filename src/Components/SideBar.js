@@ -83,6 +83,22 @@ export const SideBar = () => {
     console.log(file[0]);
     form.append(`file`, file[0]);
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "info",
+      title: "Uploading File..."
+    });
+
     fetch(process.env.REACT_APP_SERVER + "/upload", {
       method: "POST",
       headers: {

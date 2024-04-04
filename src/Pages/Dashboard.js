@@ -89,6 +89,9 @@ export const Dashboard = () => {
     }
 
     const deleteFile = async (id, name) => {
+      if (Object.entries(recentData).length === 1) {
+        sessionStorage.setItem("recent_files", JSON.stringify([]));
+      }
       fetch(process.env.REACT_APP_SERVER + "/delete", {
         method: "POST",
         headers: {
@@ -119,6 +122,9 @@ export const Dashboard = () => {
           title: "File Deleted successfully"
         });
             fetchDataForRecentFiles();
+            setTimeout(() => {
+              window.location.reload();
+            }, 3500);
           }
         })
 
