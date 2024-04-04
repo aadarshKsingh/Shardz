@@ -179,7 +179,8 @@ export const Dashboard = () => {
                       <Table.HeadCell>Delete</Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-x-0">
-                      {recentData.map(recent =>
+                    {Object.entries(recentData).length > 0 ? (
+                      recentData.map(recent =>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={recent.id}>
                           <Table.Cell className="whitespace-nowrap p-1  text-gray-900 dark:text-white">
                             {recent.name}
@@ -190,6 +191,9 @@ export const Dashboard = () => {
                           <Table.Cell className='whitespace-nowrap'><Button onClick={() => downloadFile(recent.id, recent.name)}>Download</Button></Table.Cell>
                           <Table.Cell className='whitespace-nowrap '><Button className='bg-red-600' onClick={() => deleteFile(recent.id, recent.name)}>Delete</Button></Table.Cell>
                         </Table.Row>
+                      )
+                      ) : (
+                        <p>No recent files found.</p>
                       )}
                     </Table.Body>
                   </Table>
