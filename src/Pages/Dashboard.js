@@ -11,6 +11,7 @@ import { PCloud } from "../Components/PCloud";
 import { Box } from "../Components/Box";
 import { BrowserView, MobileView } from 'react-device-detect';
 import NavBar from '../Components/NavBar';
+import Swal from "sweetalert2";
 export const Dashboard = () => {
 
   const navigate = useNavigate();
@@ -87,6 +88,44 @@ export const Dashboard = () => {
         });
     }
 
+    const deleteFile = async (id, name) => {
+      fetch(process.env.REACT_APP_SERVER + "/delete", {
+        method: "POST",
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ "file_id": id })
+      })
+        .then(async (response) => {
+          console.log(id)
+          const data = await response.json();
+          console.log(data);
+          if (data.status === "success") {
+
+          const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "File Deleted successfully"
+        });
+            fetchDataForRecentFiles();
+          }
+        })
+
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
 
     return (
       <div className='-mb-96'>
@@ -135,8 +174,9 @@ export const Dashboard = () => {
                       {/* <Table.HeadCell>Date</Table.HeadCell> */}
                       <Table.HeadCell>Size</Table.HeadCell>
                       <Table.HeadCell>
-                        <span className="sr-only">Edit</span>
+                        Download
                       </Table.HeadCell>
+                      <Table.HeadCell>Delete</Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-x-0">
                       {recentData.map(recent =>
@@ -148,6 +188,7 @@ export const Dashboard = () => {
                           {/* <Table.Cell className='whitespace-nowrap'>{recent.date}</Table.Cell> */}
                           <Table.Cell className='whitespace-nowrap'>{(recent.size / 1048576).toFixed(2)} MB</Table.Cell>
                           <Table.Cell className='whitespace-nowrap'><Button onClick={() => downloadFile(recent.id, recent.name)}>Download</Button></Table.Cell>
+                          <Table.Cell className='whitespace-nowrap '><Button className='bg-red-600' onClick={() => deleteFile(recent.id, recent.name)}>Delete</Button></Table.Cell>
                         </Table.Row>
                       )}
                     </Table.Body>
