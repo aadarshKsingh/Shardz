@@ -10,10 +10,6 @@ Shardz is a cloud storage platform that allows users to seamlessly connect their
 - **Secure**: Utilizes OAuth authentication for secure integration with cloud storage providers.
 - **User-friendly Interface**: Intuitive interface for easy navigation and file management.
 
-## Introduction to Shardz (Video)
-
-https://github.com/aadarshKsingh/Shardz/assets/47781114/01bcc80e-ed58-48f6-9f6a-31d5b0e962ac
-
 ## Team X3cutioners
 
 Shardz is developed by Team X3cutioners
