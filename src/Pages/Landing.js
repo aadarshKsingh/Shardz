@@ -88,7 +88,7 @@ export const Landing = () => {
             ref={videoRef}
           >
             <source
-              src="https://github.com/aadarshKsingh/Shardz/assets/47781114/01bcc80e-ed58-48f6-9f6a-31d5b0e962ac"
+              src="https://qu.ax/BiRY"
               type="video/mp4"
             />
           </video>
