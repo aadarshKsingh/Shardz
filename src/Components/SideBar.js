@@ -171,11 +171,11 @@ export const SideBar = () => {
                 Dashboard
               </p>
             </Sidebar.Item>
-            <Sidebar.Item icon={LuFileStack} labelColor="dark">
+            {/* <Sidebar.Item icon={LuFileStack} labelColor="dark">
               <p onClick={() => navigate("/myfiles")} className="pr-20">
                 My Files
               </p>
-            </Sidebar.Item>
+            </Sidebar.Item> */}
             {/* <Sidebar.Item icon={LuShare2}  >
             <p onClick={() => navigate("/sharedfiles")} className="pr-20">Shared Files</p>
           </Sidebar.Item> */}

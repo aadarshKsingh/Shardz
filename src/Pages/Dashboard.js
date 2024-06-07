@@ -57,6 +57,7 @@ export const Dashboard = () => {
     if (recentDataString !== "undefined" && recentDataString.length !== 0) {
       console.log(JSON.parse(recentDataString))
       recentData = JSON.parse(recentDataString)
+      sessionStorage.setItem("recentData",recentData)
     }
     if (drivesDataString !== "undefined") {
       drivesData = JSON.parse(drivesDataString)
@@ -152,17 +153,18 @@ export const Dashboard = () => {
             <div className="flex flex-col">
               <div className="flex lg:flex-row flex-col">
                 {Object.entries(drivesData).map(([driveKey, driveValue]) => {
-                  if (driveValue.drive_name === 'Google Drive') {
+                  console.log(sessionStorage.getItem('accessToken'))
+                  if (driveValue.drive_name === 'Google Drive' && driveValue.used!==0) {
                     return <GoogleDrive used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
-                  } else if (driveValue.drive_name === 'Dropbox') {
+                  } else if (driveValue.drive_name === 'Dropbox' && driveValue.used!==0) {
                     return <DropBox used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
-                  } else if (driveValue.drive_name === 'OneDrive') {
+                  } else if (driveValue.drive_name === 'OneDrive' && driveValue.used!==0) {
                     return <OneDrive used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
-                  } else if (driveValue.drive_name === 'Mega') {
+                  } else if (driveValue.drive_name === 'Mega' && driveValue.used!==0) {
                     return <Mega used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
-                  } else if (driveValue.drive_name === 'PCloud') {
+                  } else if (driveValue.drive_name === 'PCloud' && driveValue.used!==0) {
                     return <PCloud used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
-                  } else if (driveValue.drive_name === 'Box') {
+                  } else if (driveValue.drive_name === 'Box' && driveValue.used!==0) {
                     return <Box used={driveValue.used} total={driveValue.total} used_percent={driveValue.used_percent} key={driveKey} />;
                   } else {
                     return null;

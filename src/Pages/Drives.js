@@ -40,8 +40,8 @@ export const Drives = () => {
                 <div className='flex lg:flex-row'><BrowserView><SideBar /></BrowserView>
                     <div className="grid grid-flow-col lg:gap-4 gap-2 grid-cols-4">
                         {(sessionStorage.getItem("addedDrives")).split(",").map((drive, index) => {
-                            const driveObjects = storedDriveDetails.match(/\{([^}]+)\}/g).map(obj => JSON.parse(obj));
-                            console.log()
+                            // const driveObjects = storedDriveDetails.match(/\{([^}]+)\}/g).map(obj => JSON.parse(obj));
+                            // console.log()
                             return <Drive name={drive} /> 
 
                         })}
